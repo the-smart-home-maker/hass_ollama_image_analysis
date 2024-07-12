@@ -1,4 +1,4 @@
-ai_image_analysis:
+ollama_image_analysis:
   name: Analyze camera image with local AI based upon Ollama
   description: Analyze a camera image with a local AI model (e.g. llava) based upon Ollama
   fields:

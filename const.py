@@ -1,3 +1,3 @@
-"""Constants for the AI image analysis integration."""
+"""Constants for the Ollama (local AI models) image analysis integration."""
 
-DOMAIN = "ai_image_analysis"
+DOMAIN = "ollama_image_analysis"

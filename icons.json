@@ -1,5 +1,5 @@
 {
     "services": {
-        "ai_image_analysis": "mdi:image-auto-adjust"
+        "ollama_image_analysis": "mdi:image-auto-adjust"
     }
 }

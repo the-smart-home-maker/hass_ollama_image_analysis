@@ -1,4 +1,4 @@
-"""AI image analysis integration"""
+"""Ollama (local AI models) image analysis integration"""
 
 import voluptuous as vol
 
@@ -17,10 +17,10 @@ from ollama import AsyncClient
 import pybase64
 import aiofiles
 
-DOMAIN = "ai_image_analysis"
+DOMAIN = "ollama_image_analysis"
 
-AI_IMAGE_ANALYSIS_SERVICE_NAME = "ai_image_analysis"
-AI_IMAGE_ANALYSIS_SCHEMA = vol.Schema(
+OLLAMA_IMAGE_ANALYSIS_SERVICE_NAME = "ollama_image_analysis"
+OLLAMA_IMAGE_ANALYSIS_SCHEMA = vol.Schema(
     {
         vol.Required("prompt"): str,
         vol.Required("model"): str,
@@ -42,7 +42,7 @@ async def read_binary_file(file_name):
 async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
     """Setup up a config entry."""
 
-    async def ai_image_analysis(call: ServiceCall) -> ServiceResponse:
+    async def ollama_image_analysis(call: ServiceCall) -> ServiceResponse:
         config_dict = config.as_dict()
 
         # load the call parameters
@@ -82,9 +82,9 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
 
     hass.services.async_register(
         DOMAIN,
-        AI_IMAGE_ANALYSIS_SERVICE_NAME,
-        ai_image_analysis,
-        schema=AI_IMAGE_ANALYSIS_SCHEMA,
+        OLLAMA_IMAGE_ANALYSIS_SERVICE_NAME,
+        ollama_image_analysis,
+        schema=OLLAMA_IMAGE_ANALYSIS_SCHEMA,
         supports_response=SupportsResponse.ONLY,
     )
 

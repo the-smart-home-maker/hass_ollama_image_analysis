@@ -1,4 +1,4 @@
-"""Config flow for AI image analysis integration."""
+"""Config flow for Ollama (local AI models) image analysis integration."""
 
 from __future__ import annotations
 
@@ -43,7 +43,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
 
 
 class ConfigFlow(ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for AI image analysis."""
+    """Handle a config flow for Ollama (local AI models) image analysis."""
 
     VERSION = 1
 
@@ -62,7 +62,7 @@ class ConfigFlow(ConfigFlow, domain=DOMAIN):
                 errors["base"] = "unknown"
             else:
                 return self.async_create_entry(
-                    title="AI image analysis", data=user_input
+                    title="Ollama (local AI models) image analysis", data=user_input
                 )
 
         return self.async_show_form(
