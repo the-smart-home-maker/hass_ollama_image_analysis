@@ -1,0 +1,25 @@
+ollama_image_analysis:
+  name: Analyze camera image with local AI based upon Ollama
+  description: Analyze a camera image with a local AI model (e.g. llava) based upon Ollama
+  fields:
+    prompt:
+      description: The prompt describing how to analyze the image
+      example: |
+        You are a security agent and analyze the following camera image. Your focus is to identify irregularities. Please list all irregularities.
+      required: true
+      selector:
+        text:
+          multiline: true
+    image_path:
+      description: This should be the path to a snapshot image taken from your camera which shall be analyzed.
+      example: /x/y/camera_image.jpg
+      required: true
+      selector:
+        text:
+    model:
+      description: Choose which model to use. Defaults to llava.
+      example: llava
+      default: llava
+      required: false
+      selector:
+        text:
