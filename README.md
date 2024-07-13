@@ -1,2 +1,2 @@
-# Home Assistant component for image analysis with local AI models in Ollama
-Image analysis with Ollama (local AI models) from within Home Assistant
+# hass_ollama_image_analysis
+Image analysis with Ollama (AI models) from within Home Assistant
