@@ -1,0 +1,5 @@
+{
+    "content_in_root": true,
+    "render_readme": true,
+    "name": "Image analysis with local AI model vis (Ollama)"
+}
