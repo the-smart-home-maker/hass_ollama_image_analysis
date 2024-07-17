@@ -16,6 +16,7 @@ from ollama import AsyncClient
 
 import pybase64
 import aiofiles
+import asyncio
 
 DOMAIN = "ollama_image_analysis"
 
@@ -29,14 +30,27 @@ OLLAMA_IMAGE_ANALYSIS_SCHEMA = vol.Schema(
 )
 
 
-async def read_binary_file(file_name):
+async def read_binary_file(file_name: str) -> bytes:
     try:
-        async with aiofiles.open(file_name, "r") as f:
+        async with aiofiles.open(file_name, "rb") as f:
             return await f.read()
     except FileNotFoundError:
         print(f"The file {file_name} was not found.")
     except Exception as e:
         print(f"An error occurred: {e}")
+
+
+async def convert_to_base64(input_bytes: bytes) -> str:
+    # Simulate an asynchronous operation
+    await asyncio.sleep(0)
+
+    # Encode the bytes to Base64
+    base64_bytes = pybase64.b64encode(input_bytes)
+
+    # Convert the Base64 bytes back to a string
+    base64_string = base64_bytes.decode("utf-8")
+
+    return base64_string
 
 
 async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
@@ -54,9 +68,9 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
 
         client = AsyncClient(host=host)
 
-        binary_image = await read_binary_file("/workspaces/hass_core" + image_path)
+        image_bytes = await read_binary_file("/workspaces/hass_core" + image_path)
 
-        # b64encoded_binary_image = await pybase64.b64encode(binary_image)
+        b64encoded_image = await convert_to_base64(image_bytes)
 
         # make the call to ollama
         response = await client.chat(
@@ -65,12 +79,10 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
                 {
                     "role": "user",
                     "content": prompt,
-                    "image": binary_image,
+                    "images": [b64encoded_image],
                 },
             ],
         )
-
-        print("Rückmeldung von Modell: ", response["message"]["content"])
 
         return {
             "items": [
