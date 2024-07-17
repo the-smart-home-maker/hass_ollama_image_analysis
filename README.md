@@ -27,6 +27,8 @@ More details can be found here: https://github.com/ollama/ollama
 
 The easiest way to install this Home Assistant custom component is to use HACS. 
 
+Open Home Assistant, go to HACS, then click on the three dots on the upper right corner to add a custom repository. Then add the url to this repository. After adding the custom repository, you should be able to find the custom component by searching in HACS. 
+
 Once you have installed the custom component via HACS, you need to restart Home Assistant. 
 
 After the Home Assistant restart, you can go to "Settings" > "Devices & Services" > "Add integration" and then search for "Ollama (local AI models) image analysis". During the setup, you have to pass in the address of your local Ollama instance including the port. The standard port used is 11434. So the host could for example be http://192.168.178.20:11434. Make sure to use http as a protocol (not https).
