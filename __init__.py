@@ -83,7 +83,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
             ],
         )
 
-        return response["message"]["content"]
+        return { "result": response["message"]["content"] }
         
 
     hass.services.async_register(
