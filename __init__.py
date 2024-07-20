@@ -83,13 +83,9 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
             ],
         )
 
-        return {
-            "items": [
-                {
-                    "result": response["message"]["content"],
-                }
-            ],
-        }
+        return 
+             response["message"]["content"]
+        
 
     hass.services.async_register(
         DOMAIN,
