@@ -67,7 +67,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
 
         client = AsyncClient(host=host)
 
-        image_bytes = await read_binary_file("/workspaces/hass_core" + image_path)
+        image_bytes = await read_binary_file(image_path)
 
         b64encoded_image = await convert_to_base64(image_bytes)
 
