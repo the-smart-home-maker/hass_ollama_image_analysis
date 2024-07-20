@@ -3,7 +3,6 @@
 import voluptuous as vol
 
 from homeassistant.core import (
-    Config,
     HomeAssistant,
     ServiceCall,
     SupportsResponse,
