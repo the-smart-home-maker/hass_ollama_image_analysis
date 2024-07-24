@@ -17,7 +17,7 @@ import pybase64
 import aiofiles
 import asyncio
 
-DOMAIN = "hass_ollama_image_analysis"
+from .const import DOMAIN
 
 OLLAMA_IMAGE_ANALYSIS_SERVICE_NAME = "ollama_image_analysis"
 OLLAMA_IMAGE_ANALYSIS_SCHEMA = vol.Schema(
