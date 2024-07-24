@@ -1,5 +1,5 @@
 {
-  "domain": "ollama_image_analysis",
+  "domain": "hass_ollama_image_analysis",
   "name": "Ollama (local AI models) image analysis",
   "version": "0.1.0",
   "codeowners": [
