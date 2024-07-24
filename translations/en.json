@@ -14,5 +14,25 @@
                 }
             }
         }
-    }
+    },
+    "services": {
+        "ollama_image_analysis": {
+          "name": "Analyze camera image with local AI based upon Ollama",
+          "description": "Analyze a camera image with a local AI model (e.g. llava) based upon Ollama",
+          "fields": {
+            "prompt": {
+              "name": "Your prompt",
+              "description": "The prompt describing how to analyze the image"
+            },
+            "model": {
+                "name": "Model to use",
+                "description": "Choose which model to use. Defaults to llava."
+            },
+            "image_path": {
+                "name": "Local path to the image",
+                "description": "This should be the path to a snapshot image taken from your camera which shall be analyzed."
+            }
+          }
+        }
+      }
 }
