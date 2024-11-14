@@ -16,8 +16,9 @@ from ollama import AsyncClient
 import pybase64
 import aiofiles
 import asyncio
+import aiohttp
 
-from .const import DOMAIN
+DOMAIN = "ollama_image_analysis"
 
 OLLAMA_IMAGE_ANALYSIS_SERVICE_NAME = "ollama_image_analysis"
 OLLAMA_IMAGE_ANALYSIS_SCHEMA = vol.Schema(
@@ -28,6 +29,14 @@ OLLAMA_IMAGE_ANALYSIS_SCHEMA = vol.Schema(
     }
 )
 
+# Used to determine if a path is an url or a path.
+def is_url(path):
+
+    # Check if the path starts with common URL patterns
+    if path.startswith("http://") or path.startswith("https://"):
+        return True
+    else:
+        return False
 
 async def read_binary_file(file_name: str) -> bytes:
     try:
@@ -38,6 +47,17 @@ async def read_binary_file(file_name: str) -> bytes:
     except Exception as e:
         print(f"An error occurred: {e}")
 
+async def fetch_image_from_url(url: str) -> bytes:
+    """Fetches an image from a URL and returns it in binary format."""
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                if response.status == 200:
+                    return await response.read()
+                else:
+                    print(f"Failed to fetch image from {url}. Status code: {response.status}")
+    except Exception as e:
+        print(f"An error occurred while fetching the image from {url}: {e}")
 
 async def convert_to_base64(input_bytes: bytes) -> str:
     # Simulate an asynchronous operation
@@ -64,12 +84,24 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
         model = call.data.get("model", "llava")
 
         host = config_dict["data"]["host"]
-
         client = AsyncClient(host=host)
 
-        image_bytes = await read_binary_file(image_path)
+        # Will store the b64 encoded image after it's been read
+        b64encoded_image = False
 
-        b64encoded_image = await convert_to_base64(image_bytes)
+        # Determine if the image path is a url or an image path.
+        if not is_url(image_path):
+
+            # Read the file as bytes
+            image_bytes = await read_binary_file(image_path)
+            b64encoded_image = await convert_to_base64(image_bytes)
+        
+        # Otherwise, get the image url
+        else:
+
+            # Read the url as bytes
+            image_bytes = await fetch_image_from_url(image_path)
+            b64encoded_image = await convert_to_base64(image_bytes)
 
         # make the call to ollama
         response = await client.chat(
