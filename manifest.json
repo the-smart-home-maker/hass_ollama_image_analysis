@@ -15,7 +15,7 @@
   "integration_type": "service",
   "requirements": [
     "ollama==0.2.1",
-    "pybase64==1.3.2",
+    "pybase64==1.4.0",
     "aiofiles"
   ],
   "ssdp": [],
