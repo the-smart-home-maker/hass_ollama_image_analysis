@@ -1,7 +1,7 @@
 {
   "domain": "hass_ollama_image_analysis",
   "name": "Ollama (local AI models) image analysis",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "codeowners": [
     "@the-smart-home-maker"
   ],
