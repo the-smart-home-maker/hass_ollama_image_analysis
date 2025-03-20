@@ -1,7 +1,7 @@
 {
   "domain": "hass_ollama_image_analysis",
   "name": "Ollama (local AI models) image analysis",
-  "version": "0.1.2",
+  "version": "0.1.0",
   "codeowners": [
     "@the-smart-home-maker"
   ],
@@ -14,7 +14,7 @@
   "iot_class": "local_polling",
   "integration_type": "service",
   "requirements": [
-    "ollama==0.2.1",
+    "ollama==0.4.7",
     "pybase64==1.4.0",
     "aiofiles"
   ],
