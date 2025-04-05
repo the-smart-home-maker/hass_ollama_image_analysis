@@ -25,7 +25,7 @@ OLLAMA_IMAGE_ANALYSIS_SCHEMA = vol.Schema(
     {
         vol.Required("prompt"): str,
         vol.Required("model"): str,
-        vol.Required("image_path"): str,
+        vol.Required("image_paths"): [str],
     }
 )
 
@@ -80,28 +80,29 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
 
         # load the call parameters
         prompt = call.data["prompt"]
-        image_path = call.data["image_path"]
+        image_paths = call.data["image_paths"]
         model = call.data.get("model", "llava")
 
         host = config_dict["data"]["host"]
         client = AsyncClient(host=host)
 
-        # Will store the b64 encoded image after it's been read
-        b64encoded_image = False
+        # Will store the b64 encoded images after they're been read
+        b64encoded_images = []
 
-        # Determine if the image path is a url or an image path.
-        if not is_url(image_path):
+        for image_path in image_paths:
+            # Determine if the image path is a url or an image path.
+            if not is_url(image_path):
 
-            # Read the file as bytes
-            image_bytes = await read_binary_file(image_path)
-            b64encoded_image = await convert_to_base64(image_bytes)
-        
-        # Otherwise, get the image url
-        else:
+                # Read the file as bytes
+                image_bytes = await read_binary_file(image_path)
+                b64encoded_images.append(await convert_to_base64(image_bytes))
+            
+            # Otherwise, get the image url
+            else:
 
-            # Read the url as bytes
-            image_bytes = await fetch_image_from_url(image_path)
-            b64encoded_image = await convert_to_base64(image_bytes)
+                # Read the url as bytes
+                image_bytes = await fetch_image_from_url(image_path)
+                b64encoded_images.append(await convert_to_base64(image_bytes))
 
         # make the call to ollama
         response = await client.chat(
@@ -110,7 +111,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
                 {
                     "role": "user",
                     "content": prompt,
-                    "images": [b64encoded_image],
+                    "images": b64encoded_images,
                 },
             ],
         )
