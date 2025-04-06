@@ -11,11 +11,13 @@ ollama_image_analysis:
         text:
           multiline: true
     image_path:
-      description: This should be the path or a direct url to a snapshot image taken from your camera which shall be analyzed.
-      example: /x/y/camera_image.jpg or http://www.google.com/images/camera_image.jpg
+      description: This should be the paths or a direct urls to a snapshot images taken from your camera which shall be analyzed.
+      example: 
+        - /x/y/camera_image.jpg 
+        - http://www.google.com/images/camera_image.jpg
       required: true
       selector:
-        text:
+        object:
     model:
       description: Choose which model to use. Defaults to llava.
       example: llava

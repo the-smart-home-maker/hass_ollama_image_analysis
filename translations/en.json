@@ -28,9 +28,9 @@
                 "name": "Model to use",
                 "description": "Choose which model to use. Defaults to llava."
             },
-            "image_path": {
-                "name": "Local path to the image",
-                "description": "This should be the path to a snapshot image taken from your camera which shall be analyzed."
+            "image_paths": {
+                "name": "Local paths to the image",
+                "description": "This should be the paths to a snapshot images taken from your camera which shall be analyzed."
             }
           }
         }

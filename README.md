@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This Home Assistant custom component allows you to locally call your local Ollama instance and infer AI models locally. The component especially focusses on AI image analysis. You can pass in an image, for example from your security camera, to analyze it. The component provides a Home Assistant service that you can include in your automations.
+This Home Assistant custom component allows you to locally call your local Ollama instance and infer AI models locally. The component especially focusses on AI image analysis. You can pass in an image list, for example from your security camera, to analyze them. The component provides a Home Assistant service that you can include in your automations.
 
 ## Installation
 
@@ -44,7 +44,7 @@ For testing the service, you can go to "Developer Tools" > "Services" and then s
 You should now be provided with different fields to fill out:
 
 1. Prompt: The prompt tells your model what you want to know. For example "What do you see in this image?", "Do you see my glasses on this image?", "Is there something suspicious in this image?".
-2. Image path: The path to an image in your Home Assistant file system. Depends on where you store the images to be analyzed. For example "/share/camera_images/latest.jpg".
+2. Image paths: The paths to images in your Home Assistant file system. Depends on where you store the images to be analyzed. For example "/share/camera_images/latest.jpg".
 3. Model: Here you can define, which model Ollama should use for analyzing the image with the given prompt. You should select a model that is multi model, i.e. can handle image and prompt as an input. Be aware that you need to download the model once to Ollama (see installation) before you can use it via this Home Assistant service. For example "llava".
 
 Once you have filled out the fields, you can excute the service and you should be prompted with the result below the box in which you defined the input parameters. Be aware that depending on the performance / hardware config of the machine you are running Ollama on and depending on the complexity of the prompt, resolution of the image as well as on the selected AI model, it can take some seconds or even minutes to receive a response.
